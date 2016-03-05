@@ -58,15 +58,25 @@ class database:
     def get_holes(self):
         return self.run_query("""SELECT id, lat, lon
                               FROM holes""")
+    def get_hole(self, holeid):
+        return self.run_query("""SELECT id, lat, lon
+                              FROM holes
+                              WHERE id={}""".format(holeid))
 
-    # FIXME: SQL INJECTION IS POSSIBLE
+    # fixme: sql injection is possible
     def get_segments(self, holeid):
-        return self.run_query("""SELECT id, seam, sectype, startrange, endrange
-                              FROM segments
-                              WHERE bid={}""".format(holeid))
+        return self.run_query("""select id, seam, sectype, startrange, endrange
+                              from segments
+                              where bid={}""".format(holeid))
+
+    # fixme: sql injection is possible
+    def get_segment(self, holeid, segid):
+        return self.run_query("""select id, seam, sectype, startrange, endrange
+                              from segments
+                              where bid={} AND id={}""".format(holeid, segid))
 
     # FIXME: SQL INJECTION IS POSSIBLE
-    def get_ply(self, holeid, segmentid):
+    def get_plys(self, holeid, segmentid):
         return self.run_query("""SELECT id, plytype, startrange, endrange
                               FROM plys
                               WHERE bid={} AND sid={}""".format(holeid, segmentid))

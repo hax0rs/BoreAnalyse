@@ -19,7 +19,7 @@ class database:
         lon real)""",
 
         """CREATE TABLE segments
-        (id integer primary key,
+        (id integer,
         bid integer,
         seam BOOLEAN,
         sectype text,
@@ -27,7 +27,7 @@ class database:
         endrange integer)""",
 
         """CREATE TABLE plys
-        (id integer primary key,
+        (id integer,
         bid integer,
         sid integer,
         plytype text,
@@ -107,11 +107,11 @@ class database:
     # FIXME: SQL INJECTION IS POSSIBLE
     def put_segment(self, holeid, seam, seamtype, startrange, endrange):
         return self.write_query( """INSERT INTO segments
-                         VALUES(Null, {}, {}, '{}', {}, {})
-                         """.format(holeid, seam, seamtype, startrange, endrange))
+                         VALUES((SELECT IFNULL(MAX(id), 0)+1 FROM segments WHERE bid={}), {}, {}, '{}', {}, {})
+                         """.format(holeid, holeid, seam, seamtype, startrange, endrange))
 
     # FIXME: SQL INJECTION IS POSSIBLE
     def put_ply(self, holeid, segid, seamtype, startrange, endrange):
         return self.write_query("""INSERT INTO plys
-                              VALUES(Null, {}, {}, '{}', {}, {})
-                              """.format(holeid, segid, seamtype, startrange, endrange))
+                              VALUES((SELECT IFNULL(MAX(id), 0)+1 FROM plys WHERE bid={} AND sid={}), {}, {}, '{}', {}, {})
+                              """.format(holeid, segid, holeid, segid, seamtype, startrange, endrange))

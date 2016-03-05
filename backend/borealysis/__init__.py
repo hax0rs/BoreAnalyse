@@ -27,7 +27,6 @@ def index():
 def holes():
     """ Returns Hole ID, Latitude, and Longitude"""
     working = db.get_holes()
-    print(working)
     final = {}
     for hole in db.get_holes():
         final[hole[0]] = {'location':{'latitude': hole[2], 'longitude': hole[1]}}
@@ -51,7 +50,6 @@ def hole_id(bore_id):
     """
     info = db.get_hole(bore_id)[0]
     segments = db.get_segments(bore_id)
-    print(segments)
     segments_dic = {}
     for seg in segments:
         segdic = {}
@@ -80,32 +78,32 @@ def seam(bore_id, seam_id):
 @app.route('/summary/<bore_id>')
 @app.route('/summary/<bore_id>/')
 def summary(bore_id):
-    return('''
-{
-    "coal_count": 54,
-    "coal_percent": 73.5,
-    "rare": [{
-        "name": "ABBREVIATION",
-        "percent": 1
-    }, {
-        "name": "ABBREVIATION",
-        "percent": 2
-    }]
-}
-        ''')
+    coal = "S1"
+    depth = db.get_hole_depth(bore_id)[0][0] or 0
+    stats = db.get_hole_stats(bore_id, coal)
+    if stats == []:
+        stats = [(0,0)]
+    coals, coaldepth = stats[0]
+    pcoal = coaldepth/depth *100
+    rares = []
+    for element in db.get_hole_breakdown(bore_id):
+        if element[0] not in (None, "", coal):
+            rares.append({"name": element[0], "percent": element[2]/depth*100, "count": element[1]})
 
+    final = {'depth': depth, 'coal_count': coals, 'coal_percent': pcoal, 'rare': rares}
+    return json.jsonify(final)
 
 # POST Views
-#curl --data "holeid=123&lat=-20.244972&lon=143.743137" http://localhost:5000/post/hole
+#OLD curl --data "holeid=123&lat=-20.244972&lon=143.743137" http://localhost:5000/post/hole
+#curl --data "holeid=1235&easting=2419970.28&northing=7535210.728" http://localhost:5000/post/hole
 @app.route("/post/hole", methods=['GET','POST'])
 def post_hole():
     try:
         holeid = int(request.form['holeid'])
-        #zone, zoneletter = 4, 'u'
-        #east, north = float(request.form['easting']), float(request.form['northing'])
-        lat, lon = float(request.form['lat']), float(request.form['lon'])
-        #TODO: FIX UTM
-        #lat, lon = utm.to_latlon(east, north, zone, zoneletter)
+        zone, zoneletter = 55, 'K'                # \/ It just works tm
+        east, north = float(request.form['easting'])/10, float(request.form['northing'])
+        #lat, lon = float(request.form['lat']), float(request.form['lon'])
+        lat, lon = utm.to_latlon(east, north, zone, zoneletter)
         db.put_hole(holeid, lat, lon)
         return "Inserted"
     except Exception as e:

@@ -63,6 +63,24 @@ class database:
                               FROM holes
                               WHERE id={}""".format(holeid))
 
+    def get_hole_depth(self, holeid):
+        return self.run_query("""SELECT max(endrange)
+                              FROM segments
+                              WHERE bid={}""".format(holeid))
+
+    def get_hole_stats(self, holeid, segtype):
+        return self.run_query("""SELECT COUNT(*), SUM((endrange-startrange))
+                              FROM segments
+                              GROUP BY bid, sectype
+                              HAVING bid={} AND sectype='{}'""".format(holeid, segtype))
+
+    def get_hole_breakdown(self, holeid):
+        return self.run_query("""SELECT sectype, COUNT(*), SUM((endrange-startrange))
+                              FROM segments
+                              GROUP BY bid, sectype
+                              HAVING bid={}
+                              ORDER BY SUM((endrange-startrange))""".format(holeid))
+
     # fixme: sql injection is possible
     def get_segments(self, holeid):
         return self.run_query("""select id, seam, sectype, startrange, endrange

@@ -78,7 +78,7 @@ class database:
         return self.run_query("""SELECT sectype, COUNT(*), SUM((endrange-startrange))
                               FROM segments
                               GROUP BY bid, sectype
-                              HAVING bid={}
+                              HAVING bid={} AND seam = 1
                               ORDER BY SUM((endrange-startrange))""".format(holeid))
 
     # fixme: sql injection is possible

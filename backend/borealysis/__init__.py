@@ -111,11 +111,12 @@ def post_hole():
 
 #            Can be null       CM
 #curl --data "seamtype=GOP&start=0&end=100" http://localhost:5000/post/hole/123/segment
+#curl --data "start=150&end=200" http://localhost:5000/post/hole/456/segment
 @app.route("/post/hole/<bore_id>/segment", methods=['GET','POST'])
 def post_segement(bore_id):
     try:
         holeid = int(bore_id)
-        seam = request.form['seamtype'] and request.form['seamtype'] not in ("",None)
+        seam = 'seamtype' in request.form and request.form['seamtype'] not in ("",None)
         if seam:
             seamtype = request.form['seamtype']
         else:

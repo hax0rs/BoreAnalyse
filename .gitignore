@@ -1,3 +1,5 @@
 /backend/venv/*
-
+/backend/.ropeproject/*
+/backend/borealysis/.ropeproject/*
+.ropeproject/*
 *.pyc

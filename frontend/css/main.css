@@ -1,0 +1,26 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#map {
+    height: 50%;
+}
+
+.dark{
+    background: #1c1b18;
+}
+
+.feature_line{
+    min-height: 5px;
+    background-color: #ff7607;
+}
+
+.logo{
+    min-height: 40px;
+}
+
+.brand-logo{
+    padding: 9px !important;
+}

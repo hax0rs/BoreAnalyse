@@ -1,0 +1,133 @@
+  <!DOCTYPE html>
+  <html ng-app="borealysisApp">
+    <head>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+      <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+      <link type="text/css" rel="stylesheet" href="css/main.css"  media="screen,projection"/>
+
+      <link type="text/css" rel="stylesheet" href="css/segments.css"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    </head>
+
+    <body ng-controller="borealysisController as ba">
+<!-- <body> -->
+  <!-- <div class="feature_line"></div> -->
+
+  <nav class="dark">
+    <div class="nav-wrapper">
+
+<!--       <a href="/" class="brand-logo left">
+          <img class="logo valign" src="img/logo.png">
+      </a> -->
+      <a href="#" class="hide-on-med-and-down">Borealysis</a>
+      <form class="right" >
+        <div class="input-field">
+          <input id="search" type="search" required>
+          <label for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons">close</i>
+        </div>
+      </form>
+    </div>
+  </nav>
+        
+ayyy lmao
+{{borealysis.test[0]}}
+
+<li ng-repeat="item in ba.test">
+          <label class="checkbox">
+            <input type="checkbox">
+            <span class="done-{{todo.done}}">{{item.text}}</span>
+          </label>
+        </li>
+
+    <div id="map"></div>
+    <script>
+      var map;
+      function initMap() {
+        var myLatLng = {lat: -25.363, lng: 131.044};
+        var gc = {lat: -28.0172600, lng: 153.4256990};
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 4,
+    center: myLatLng
+  });
+
+  var marker = new google.maps.Marker({
+    position: myLatLng,
+    map: map,
+    title: 'Hello World!'
+  });
+
+  var otherMarker = new google.maps.Marker({
+    position: gc,
+    map: map,
+    title: 'GC Lmao'
+  });
+      }
+    </script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYK4q0_H1gmruure62HMX1mbkgzcfofnc&callback=initMap"
+    async defer></script>
+
+
+
+
+    <div class="row">
+      <div class="col s12 m5">
+        <div class="card-panel teal">
+          <span class="white-text">
+              Coal Percentage: {{}}
+          </span>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+<div class="hole_visual">
+    <div class="colored_divs">
+        <div class="segment">
+
+        </div>
+    </div>
+</div>
+
+
+    <div>
+      <label>Name:</label>
+      <input type="text" ng-model="yourName" placeholder="Enter a name here">
+      <hr>
+      <h1>Hello {{yourName}}!</h1>
+    </div>
+
+
+    <footer class="page-footer white">
+          <div class="footer-copyright">
+            <div class="container black-text text-darken-4">
+            &copy; 2016 Borealysis Team Unearthed
+            <a class="black-text text-darken-4 right" href="https://github.com/hax0rs/Borealysis">GitHub</a>
+            </div>
+          </div>
+        </footer>
+
+
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+    </body>
+  </html>

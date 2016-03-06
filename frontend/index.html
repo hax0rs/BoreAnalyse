@@ -1,8 +1,10 @@
   <!DOCTYPE html>
   <html ng-app="borealysisApp">
     <head>
+    <title>Test</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.1.js"></script>
     <script type="text/javascript" src="js/angular.min.js"></script>
-        <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
       <!--Import Google Icon Font-->
       <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!-- Compiled and minified CSS -->
@@ -85,36 +87,53 @@
         </li>
 </ul>
 
-
-
-
-
-
+    <div class="row">
+      <div class="col s3 m3">
+        Bore ID/Name: {{}}
+      </div>
+      <div class="col s6 m6">
+        Machine Learning web service: {{}}
+      </div>
+    </div>
 
     <div class="row">
-      <div class="col s12 m3">
+    <div class="col s12 m3">
         <div class="card-panel grey hole_visual">
           <div class="white-text black segment">
 
           </div>
         </div>
       </div>
-<div>
-
-
-            <div class="col s12 m9">
-        <div class="card-panel grey">
-          <span class="white-text">
-              Coal Percentage: {{}}
-          </span>
+      <div class="col s12 m3">
+        <div class="card-panel grey hole_visual" id="vis">
+          <div class="white-text soil segment"></div>
+          <div class="white-text soil segment"></div>
+          <div class="white-text A1 segment"></div>
+          <div class="white-text A2 segment"></div>
+          <div class="white-text A3 segment"></div>
+          <div class="white-text A3 segment"></div>
+          <div class="white-text coal segment"></div>
+          <div class="white-text coal segment"></div>
         </div>
       </div>
+    <div>
 
-
-
-            <div class="col s12 m9">
-        <div class="white">
-          <span class="black-text">
+    <div class="col s12 m6">
+      <div class="card-panel grey">
+        <span class="white-text">
+              Total Coal found in bore: {{}} metres
+        </span>
+      </div>
+      <div class="row">
+      <div class="card-panel grey">
+        <span class="white-text">
+              Confidence: {{}}%
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="white">
+        <span class="black-text">
 <b>Log:</b>
 <p>
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -128,17 +147,11 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </div>
       </div>
 
+    </div>
 
 
 </div>
     </div>
-
-
-
-
-
-
-
 
     <footer class="page-footer white">
           <div class="footer-copyright">

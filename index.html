@@ -83,22 +83,16 @@
 
 <nav>
     <div class="nav-wrapper dark">
-      <div class="col s12">
-        <a href="#!" class="breadcrumb">First</a>
-        <a href="#!" class="breadcrumb">Second</a>
-        <a href="#!" class="breadcrumb">Third</a>
-      </div>
+<form class="" ng-submit="ba.borehole_search()">
+        <div class="input-field">
+          <input id="search" type="search" ng-model="ba.search" required>
+          <label for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons">close</i>
+        </div>
+      </form>
     </div>
   </nav>
 
-<ul>
-<li ng-repeat="item in ba.test">
-          <label class="checkbox">
-            <input type="checkbox">
-            <span class="done-{{todo.done}}">{{item.text}}</span>
-          </label>
-        </li>
-</ul>
 
     <div class="row">
       <div class="col s3 m3">
@@ -112,8 +106,8 @@
     <div class="row">
     <div class="col s12 m3">
         <div class="card-panel grey hole_visual">
-          <div class="white-text black segment">
-
+          <div class="black-text black hole_id">
+              Hole ID: {{ba.current["bore_id"]}}
           </div>
         </div>
       </div>
@@ -135,13 +129,28 @@
     <div class="col s12 m6">
       <div class="card-panel grey">
         <span class="white-text">
-              Total Coal found in bore: {{}} metres
+              Total Coal found in bore: {{}} % <br>
+              Segmentation Count: {{ba.current["segment_count"]}}
         </span>
       </div>
       <div class="row">
       <div class="card-panel grey">
         <span class="white-text">
-              Confidence: {{}}%
+              Confidence: {{}}80%
+        </span>
+      </div>
+    </div>
+          <div class="row">
+      <div class="card-panel grey">
+        <span class="white-text">
+              <b>Segment Overview:</b><br>
+                 <div ng-repeat="seg in ba.current.segment">
+                    Type: {{seg.type}}<br>
+                    Range: {{seg.range.start}} - {{seg.range.end}}m
+                      <div class="divider"></div>
+                </div>
+
+
         </span>
       </div>
     </div>
@@ -178,8 +187,9 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 
       <!--Import jQuery before materialize.js-->
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYK4q0_H1gmruure62HMX1mbkgzcfofnc&callback=initMap"
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYK4q0_H1gmruure62HMX1mbkgzcfofnc&callback=initMap"
     async defer></script>
+
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="js/materialize.min.js"></script>
     </body>

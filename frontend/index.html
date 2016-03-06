@@ -57,13 +57,26 @@
   var marker = new google.maps.Marker({
     position: myLatLng,
     map: map,
-    title: 'Hello World!'
+    title: 'Some mine!'
   });
 
   var otherMarker = new google.maps.Marker({
     position: gc,
     map: map,
-    title: 'GC Lmao'
+    title: 'Commonwealth Games'
+  });
+
+  otherMarker.addListener('click', function() {
+    map.setZoom(8);
+    map.setCenter(marker.getPosition());
+    var h = 100;
+    var foo = setInterval(function () {
+      if (h>2000) {
+        clearInterval(foo); 
+   }
+   h = h + 20;
+   document.getElementById('vis').style.height = h + 'px';
+    }, 100);
   });
       }
     </script>
@@ -106,6 +119,7 @@
       </div>
       <div class="col s12 m3">
         <div class="card-panel grey hole_visual" id="vis">
+          <div class="segment">Real Time Analysis</div>
           <div class="white-text soil segment"></div>
           <div class="white-text soil segment"></div>
           <div class="white-text A1 segment"></div>

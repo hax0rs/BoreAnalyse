@@ -9,15 +9,18 @@ angular.module('borealysisApp', [])
 
 
 // Animation
-var h = 100;
+
+function lmao () {
+    var h = 100;
 var foo = setInterval(function () {
    if (h>2000) {
-    clearInterval(foo); 
+    clearInterval(foo);
    }
    h = h + 5;
    document.getElementById('vis').style.height = h + 'px';
 }, 100);
 
+}
 
     borealysis.get_boreholes = function() {
         var url = api_url.concat("holes/");
@@ -28,7 +31,7 @@ var foo = setInterval(function () {
           url: url
         }).then(function successCallback(response) {
             borealysis.boreholes = response.data;
-            console.log(borealysis.boreholes)
+            console.log(borealysis.boreholes);
           }, function errorCallback(response) {
             console.log("GET error.");
           });
@@ -52,6 +55,7 @@ var foo = setInterval(function () {
     borealysis.borehole_search = function(){
         var search = borealysis.search;
         borealysis.get_borehole_properties(search);
+        lmao();
     };
 
 

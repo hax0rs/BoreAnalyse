@@ -12,6 +12,7 @@ def index():
 @app.route('/holes/')
 def holes():
     """ Returns Hole ID, Latitude, and Longitude"""
+    print(db.get_holes())
     return ('''
         {
     "1": {
@@ -41,8 +42,8 @@ def hole_id(bore_id):
     Returns:
     location --
         latitude -- coordinates
-        longitude -- 
-    seam_count -- 
+        longitude --
+    seam_count --
 
 
     """
@@ -75,4 +76,11 @@ def summary(bore_id):
 
 
 # POST Views
+
+@app.route("/post/hole", methods=['GET','POST'])
+def post_hole():
+    if request.method == "POST":
+        print(request.form)
+    else:
+        return "Yo fam read the docs"
 

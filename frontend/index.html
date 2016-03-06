@@ -28,30 +28,17 @@
 
   <nav class="dark">
     <div class="nav-wrapper">
-
-<!--       <a href="/" class="brand-logo left">
-          <img class="logo valign" src="img/logo.png">
-      </a> -->
       <a href="#" class="hide-on-med-and-down">Borealysis</a>
-      <form class="right" >
+      <form class="right" ng-submit="ba.borehole_search()">
         <div class="input-field">
-          <input id="search" type="search" required>
+          <input id="search" type="search" ng-model="ba.search" required>
           <label for="search"><i class="material-icons">search</i></label>
           <i class="material-icons">close</i>
         </div>
       </form>
     </div>
   </nav>
-        
-ayyy lmao
-{{borealysis.test[0]}}
-
-<li ng-repeat="item in ba.test">
-          <label class="checkbox">
-            <input type="checkbox">
-            <span class="done-{{todo.done}}">{{item.text}}</span>
-          </label>
-        </li>
+       
 
     <div id="map"></div>
     <script>
@@ -78,42 +65,79 @@ ayyy lmao
   });
       }
     </script>
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYK4q0_H1gmruure62HMX1mbkgzcfofnc&callback=initMap"
-    async defer></script>
+
+<nav>
+    <div class="nav-wrapper dark">
+      <div class="col s12">
+        <a href="#!" class="breadcrumb">First</a>
+        <a href="#!" class="breadcrumb">Second</a>
+        <a href="#!" class="breadcrumb">Third</a>
+      </div>
+    </div>
+  </nav>
+
+<ul>
+<li ng-repeat="item in ba.test">
+          <label class="checkbox">
+            <input type="checkbox">
+            <span class="done-{{todo.done}}">{{item.text}}</span>
+          </label>
+        </li>
+</ul>
+
+
+
 
 
 
 
     <div class="row">
-      <div class="col s12 m5">
-        <div class="card-panel teal">
+      <div class="col s12 m3">
+        <div class="card-panel grey hole_visual">
+          <div class="white-text black segment">
+
+          </div>
+        </div>
+      </div>
+<div>
+
+
+            <div class="col s12 m9">
+        <div class="card-panel grey">
           <span class="white-text">
               Coal Percentage: {{}}
           </span>
         </div>
       </div>
-    </div>
 
 
 
-
-
-
-<div class="hole_visual">
-    <div class="colored_divs">
-        <div class="segment">
-
+            <div class="col s12 m9">
+        <div class="white">
+          <span class="black-text">
+<b>Log:</b>
+<p>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</p>
+          </span>
         </div>
-    </div>
+      </div>
+
+
+
 </div>
-
-
-    <div>
-      <label>Name:</label>
-      <input type="text" ng-model="yourName" placeholder="Enter a name here">
-      <hr>
-      <h1>Hello {{yourName}}!</h1>
     </div>
+
+
+
+
+
+
 
 
     <footer class="page-footer white">
@@ -127,6 +151,8 @@ ayyy lmao
 
 
       <!--Import jQuery before materialize.js-->
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYK4q0_H1gmruure62HMX1mbkgzcfofnc&callback=initMap"
+    async defer></script>
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="js/materialize.min.js"></script>
     </body>

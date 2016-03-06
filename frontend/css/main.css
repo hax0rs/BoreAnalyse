@@ -24,3 +24,21 @@ html, body {
 .brand-logo{
     padding: 9px !important;
 }
+
+#search{
+    margin: 0px;
+}
+
+.nav-wrapper{
+    padding-left: 15px;
+}
+
+.hole_visual{
+    height: 1000px;
+    padding: 0;
+}
+
+.segment{
+    width: 100%;
+    height: 50px;
+}

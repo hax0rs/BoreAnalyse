@@ -25,20 +25,66 @@ html, body {
     padding: 9px !important;
 }
 
-#search{
+#search {
     margin: 0px;
 }
 
-.nav-wrapper{
+.nav-wrapper {
     padding-left: 15px;
 }
 
-.hole_visual{
-    height: 1000px;
+.hole_visual {
+    height: 50px;
     padding: 0;
+	text-align: center;
+}
+.hole_visual:after {
+	
+}
+.hole_after {
+	content: "";
+	bottom: -100px;
+	height: 100px;
+	width: 75px;
+	background: url('../img/drill.gif');
+	display: block;
 }
 
 .segment{
     width: 100%;
     height: 50px;
 }
+
+.soil {
+	background-color: #d9d0bc;	
+}
+
+.A1 {
+	background-color: #e1e1e1;
+}
+.A2 {
+	background-color: #d6d6d6;
+}
+.A3 {
+	background-color: #cdcdcd;
+}
+.A4 {
+	background-color: #b8b8b8;
+}
+.coal {
+	background-color: #404040 !important;
+	content: "Coal!";
+}
+#vis {
+	overflow: hidden;
+}
+
+
+
+
+
+
+
+
+
+

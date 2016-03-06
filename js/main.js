@@ -6,6 +6,7 @@ angular.module('borealysisApp', [])
     borealysis.current = {};
     borealysis.boreholes = {};
     borealysis.data = {};
+    borealysis.summary = {}
 
 
 // Animation
@@ -52,9 +53,23 @@ var foo = setInterval(function () {
 
     };
 
+    borealysis.get_borehole_summary = function(borehole_id){
+        var url = api_url.concat("summary/").concat(borehole_id).concat("/");
+        $http({
+          method: 'GET',
+          url: url
+        }).then(function successCallback(response) {
+            borealysis.summary = response.data;
+            console.log(borealysis.summary);
+          }, function errorCallback(response) {
+            console.log("GET error.");
+          });
+    };
+
     borealysis.borehole_search = function(){
         var search = borealysis.search;
         borealysis.get_borehole_properties(search);
+        borealysis.get_borehole_summary(search);
         lmao();
     };
 

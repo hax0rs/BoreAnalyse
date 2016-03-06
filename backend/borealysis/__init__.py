@@ -4,6 +4,8 @@ from flask import request
 from flask import json
 
 import utm
+import csv
+import urllib
 
 app = Flask(__name__)
 
@@ -92,6 +94,39 @@ def summary(bore_id):
 
     final = {'depth': depth, 'coal_count': coals, 'coal_percent': pcoal, 'rare': rares}
     return json.jsonify(final)
+
+@app.route('/generate/<bore_id>')
+@app.route('/generate/<bore_id>/')
+def generate(bore_id):
+    with open('full_data.csv') as csvfile:
+        reader = csv.reader(csvfile)
+        array = list(reader)
+        array = list(filter(lambda x: x[0] == bore_id, array))
+        for row in array:
+            data =  {
+
+            "Inputs": {
+                    "input1":
+                    {
+                        "ColumnNames": ["Col1", "Col2", "Col3", "Col4", "Col5", "Col6", "Col7", "Col8", "Col9"],
+                        "Values": [row]
+                        },        
+                },
+                "GlobalParameters": {}
+            }
+
+            body = str.encode(json.dumps(data))
+
+            url = 'https://ussouthcentral.services.azureml.net/workspaces/b39c93660f1b4f91b7c7578fdbb4747d/services/e81f93528e1949279c793679d7400965/execute?api-version=2.0&details=true'
+            api_key = 'JvSUvSc4vV6VYIPlOCS+cNfF8fHSAaMWfD+6lELTywCko19eO6mE9w6L6DJHLkkYiJ7g8e7XpxprXD6ytJtXOw=='
+            headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ api_key)}
+
+            req = urllib.request.Request(url, body, headers) 
+            with urllib.request.urlopen(req) as response:
+                print(json.loads(response.read())['Results']['output1']['value']['Values'][0][-1]) 
+
+    return 'test'
+
 
 # POST Views
 #OLD curl --data "holeid=123&lat=-20.244972&lon=143.743137" http://localhost:5000/post/hole

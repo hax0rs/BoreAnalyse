@@ -31,7 +31,7 @@ def holes():
     working = db.get_holes()
     final = {}
     for hole in db.get_holes():
-        final[hole[0]] = {'location':{'latitude': hole[2], 'longitude': hole[1]}}
+        final[hole[0]] = {'location':{'latitude': hole[1], 'longitude': hole[2]}}
     return json.jsonify(final)
 
 @app.route('/holes/<bore_id>')
@@ -60,7 +60,7 @@ def hole_id(bore_id):
             segdic['type'] = seg[2]
         segments_dic[seg[0]] = segdic
 
-    final = {'bore_id': bore_id, 'location':{'latitude': info[2], 'longitude': info[1]}, 'segment_count': len(segments), 'segment': segments_dic}
+    final = {'bore_id': bore_id, 'location':{'latitude': info[1], 'longitude': info[2]}, 'segment_count': len(segments), 'segment': segments_dic}
     return json.jsonify(final)
 
 

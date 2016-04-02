@@ -73,7 +73,7 @@ def seam(bore_id, seam_id):
 @app.route('/summary/<bore_id>')
 @app.route('/summary/<bore_id>/')
 def summary(bore_id):
-    coal = "S1"
+    coal = "CO"
     depth = db.get_hole_depth(bore_id)[0][0] or 0
     stats = db.get_hole_stats(bore_id, coal)
     if stats == []:

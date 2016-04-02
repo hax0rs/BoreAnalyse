@@ -3,3 +3,4 @@
 /backend/borealysis/.ropeproject/*
 .ropeproject/*
 *.pyc
+*.swp

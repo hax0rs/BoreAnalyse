@@ -17,13 +17,6 @@ except:
     pass
 
 # GET Views
-
-
-@app.route('/')
-def index():
-    return 'Hello World!'
-
-
 @app.route('/holes')
 @app.route('/holes/')
 def holes():

@@ -6,6 +6,9 @@ from flask import json
 import utm
 import csv
 import urllib
+import datetime
+
+from multiprocessing import Process, Pool
 
 app = Flask(__name__)
 
@@ -95,31 +98,63 @@ def generate(bore_id):
         reader = csv.reader(csvfile)
         array = list(reader)
         array = list(filter(lambda x: x[0] == bore_id, array))
-        for row in array:
-            data =  {
+        
+        db_segments = db.get_segments(bore_id)
+        def check_redundant(row):
+            for segment in db_segments:
+                if segment[-2] <= float(row[1]) < segment[-1]:
+                    return False
+            return True
 
-            "Inputs": {
-                    "input1":
-                    {
-                        "ColumnNames": ["Col1", "Col2", "Col3", "Col4", "Col5", "Col6", "Col7", "Col8", "Col9"],
-                        "Values": [row]
-                        },        
-                },
-                "GlobalParameters": {}
-            }
+        print(len(array))
+        array = list(filter(lambda x: check_redundant(x), array))
+        print(len(array))
 
-            body = str.encode(json.dumps(data))
+        pool = Pool(processes=10)
+        results = pool.map(get_azure, array)
+        print(len(results))
+        results = list(filter(lambda x: x is not None, results))
+        print(len(results))
+        depths = [float(x[0]) for x in results]
+        data = [(row[0], 1, result[1], float(result[0]), min(filter(lambda x: x > float(result[0]), depths))) 
+            for row in array for result in results if float(result[0]) == float(row[1]) if float(result[0]) != max(depths)]
+        
+        for row in data:
+            db.put_segment(*row)
 
-            url = 'https://ussouthcentral.services.azureml.net/workspaces/b39c93660f1b4f91b7c7578fdbb4747d/services/e81f93528e1949279c793679d7400965/execute?api-version=2.0&details=true'
-            api_key = 'JvSUvSc4vV6VYIPlOCS+cNfF8fHSAaMWfD+6lELTywCko19eO6mE9w6L6DJHLkkYiJ7g8e7XpxprXD6ytJtXOw=='
-            headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ api_key)}
+        return str(data)
 
-            req = urllib.request.Request(url, body, headers) 
-            with urllib.request.urlopen(req) as response:
-                print(json.loads(response.read())['Results']['output1']['value']['Values'][0][-1]) 
+def get_azure(row):
+    try:
+        data =  {
 
-    return 'test'
+        "Inputs": {
+                "input1":
+                {
+                    "ColumnNames": ["Col1", "Col2", "Col3", "Col4", "Col5", "Col6", "Col7", "Col8", "Col9"],
+                    "Values": [row]
+                    },        
+            },
+            "GlobalParameters": {}
+        }
 
+        body = str.encode(json.dumps(data))
+
+        url = 'https://ussouthcentral.services.azureml.net/workspaces/b39c93660f1b4f91b7c7578fdbb4747d/services/e81f93528e1949279c793679d7400965/execute?api-version=2.0&details=true'
+        api_key = 'JvSUvSc4vV6VYIPlOCS+cNfF8fHSAaMWfD+6lELTywCko19eO6mE9w6L6DJHLkkYiJ7g8e7XpxprXD6ytJtXOw=='
+        headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ api_key)}
+
+        req = urllib.request.Request(url, body, headers) 
+        with urllib.request.urlopen(req) as response:
+            result = json.loads(response.read())['Results']['output1']['value']['Values'][0]
+            return result[0], result[-1]
+    except urllib.error.HTTPError as e:
+        # Keep retrying iff 503 error
+        if e.code == 503:
+            return get_azure(row)
+        else:
+            print(e)
+    return None
 
 # POST Views
 #OLD curl --data "holeid=123&lat=-20.244972&lon=143.743137" http://localhost:5000/post/hole

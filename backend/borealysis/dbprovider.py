@@ -23,16 +23,16 @@ class database:
         bid integer,
         seam BOOLEAN,
         sectype text,
-        startrange integer,
-        endrange integer)""",
+        startrange real,
+        endrange real)""",
 
         """CREATE TABLE plys
         (id integer,
         bid integer,
         sid integer,
         plytype text,
-        startrange integer,
-        endrange integer)"""
+        startrange real,
+        endrange real)"""
               ]
 
     conn = None

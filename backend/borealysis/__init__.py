@@ -33,7 +33,7 @@ def holes():
 @app.route('/holes/<bore_id>')
 @app.route('/holes/<bore_id>/')
 def hole_id(bore_id):
-    """Returns JSON data related to the specifichole.
+    """Returns JSON data related to the specific hole.
 
     Arguments:
     borehole_id -- The ID of the borehole
@@ -63,7 +63,8 @@ def hole_id(bore_id):
 @app.route('/con/<bore_id>')
 @app.route('/con/<bore_id>/')
 def hole_id_con(bore_id):
-    """Returns JSON data related to the specifichole.
+    """Returns JSON data related to the specific hole, with consecutive segments
+    of the same type condensed into a single segment.
 
     Arguments:
     borehole_id -- The ID of the borehole
@@ -73,7 +74,6 @@ def hole_id_con(bore_id):
         latitude -- coordinates
         longitude --
     seam_count --
-
 
     """
 
@@ -131,6 +131,7 @@ def seam(bore_id, seam_id):
 @app.route('/summary/<bore_id>/')
 def summary(bore_id):
     coal = "CO"
+    info = db.get_hole(bore_id)[0]
     depth = db.get_hole_depth(bore_id)[0][0] or 0
     stats = db.get_hole_stats(bore_id, coal)
     if stats == []:
@@ -142,7 +143,7 @@ def summary(bore_id):
         if element[0] not in (None, "", coal):
             rares.append({"name": element[0], "percent": element[2]/depth*100, "count": element[1]})
 
-    final = {'depth': depth, 'coal_count': coals, 'coal_percent': pcoal, 'rare': rares}
+    final = {'depth': depth, 'location':{'latitude': info[1], 'longitude': info[2]}, 'coal_count': coals, 'coal_percent': pcoal, 'rare': rares}
     return json.jsonify(final)
 
 @app.route('/generate')

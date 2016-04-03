@@ -33,7 +33,7 @@
       <a href="#" class="hide-on-med-and-down">Borealysis</a>
       <form class="right" ng-submit="ba.borehole_search()">
         <div class="input-field">
-          <input id="search" type="search" ng-model="ba.search" required>
+          <input id="search" placeholder="ID" type="search" ng-model="ba.search" required>
           <label for="search"><i class="material-icons">search</i></label>
           <i class="material-icons">close</i>
         </div>
@@ -44,65 +44,26 @@
 
     <div id="map"></div>
     <script>
-      var map;
+      window.map;
       function initMap() {
         var myLatLng = {lat: -25.363, lng: 131.044};
         var gc = {lat: -28.0172600, lng: 153.4256990};
 
-  var map = new google.maps.Map(document.getElementById('map'), {
+  window.map = new google.maps.Map(document.getElementById('map'), {
     zoom: 4,
     center: myLatLng
   });
 
-  var marker = new google.maps.Marker({
-    position: myLatLng,
-    map: map,
-    title: 'Some mine!'
-  });
-
-  var otherMarker = new google.maps.Marker({
-    position: gc,
-    map: map,
-    title: 'Commonwealth Games'
-  });
 
   otherMarker.addListener('click', function() {
     map.setZoom(8);
     map.setCenter(otherMarker.getPosition());
-    var h = 100;
-    var foo = setInterval(function () {
-      if (h>2000) {
-        clearInterval(foo); 
-   }
-   h = h + 20;
-   document.getElementById('vis').style.height = h + 'px';
-    }, 100);
   });
       }
     </script>
 
-<nav>
-    <div class="nav-wrapper dark">
-<form class="" ng-submit="ba.borehole_search()">
-        <div class="input-field">
-          <input id="search" type="search" ng-model="ba.search" required>
-          <label for="search"><i class="material-icons">search</i></label>
-          <i class="material-icons">close</i>
-        </div>
-      </form>
-    </div>
-  </nav>
 
-
-    <div class="row">
-      <div class="col s3 m3">
-        Bore ID/Name: {{}}
-      </div>
-      <div class="col s6 m6">
-        Machine Learning web service: {{}}
-      </div>
-    </div>
-
+ <br>
     <div class="row">
     <div class="col s12 m3">
         <div class="card-panel grey hole_visual">
@@ -110,6 +71,12 @@
               Hole ID: {{ba.current["bore_id"]}}
           </div>
         </div>
+<!--         <div id="map" style="height:250px;"></div> -->
+
+
+
+
+
             <div class="white">
         <span class="black-text">
 <b>Log:</b>
@@ -122,6 +89,9 @@
 </ul>
           </span>
         </div>
+
+
+
       </div>
 
 
@@ -145,14 +115,12 @@
           <div class="row">
       <div class="card-panel grey segment_div">
         <span class="white-text">
-              <b>Segment Overview:</b><br>
+              <span style="padding: 15px;"><b>Segment Overview:</b></span>
+              <br>
                  <div class="segment {{seg.type}}" ng-repeat="seg in ba.current.segment">
                     Type: {{seg.type}}<br>
                     Range: {{seg.range.start}} - {{seg.range.end}}m
-                      <!-- <div class="divider"></div> -->
                 </div>
-
-
         </span>
       </div>
     </div>
@@ -169,7 +137,7 @@
           <div class="footer-copyright">
             <div class="container black-text text-darken-4">
             &copy; 2016 Borealysis Team Unearthed
-            <a class="black-text text-darken-4 right" href="https://github.com/hax0rs/Borealysis">GitHub</a>
+            <!-- <a class="black-text text-darken-4 right" href="https://github.com/hax0rs/Borealysis">GitHub</a> -->
             </div>
           </div>
         </footer>

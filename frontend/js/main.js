@@ -6,22 +6,9 @@ angular.module('borealysisApp', [])
     borealysis.current = {};
     borealysis.boreholes = {};
     borealysis.data = {};
-    borealysis.summary = {}
+    borealysis.summary = {};
 
 
-// Animation
-
-function lmao () {
-    var h = 100;
-var foo = setInterval(function () {
-   if (h>2000) {
-    clearInterval(foo);
-   }
-   h = h + 5;
-   document.getElementById('vis').style.height = h + 'px';
-}, 100);
-
-}
 
     borealysis.get_boreholes = function() {
         var url = api_url.concat("holes/");
@@ -70,11 +57,34 @@ var foo = setInterval(function () {
         var search = borealysis.search;
         borealysis.get_borehole_properties(search);
         borealysis.get_borehole_summary(search);
-        lmao();
+        // console.log(borealysis.current);
+        // console.log(borealysis.current);
+
+        var url = api_url.concat("summary/").concat(search).concat("/");
+        $http({
+          method: 'GET',
+          url: url
+        }).then(function successCallback(response) {
+            var returnedData = response.data;
+            var a = returnedData.location.latitude;
+            var b = returnedData.location.longitude;
+            window.map.setZoom(10);
+            window.map.setCenter({lat: a, lng: b});
+
+              var otherMarker = new google.maps.Marker({
+                position: {lat: a, lng: b},
+                map: window.map,
+                title: search
+              });
+
+            // console.log(borealysis.summary);
+          }, function errorCallback(response) {
+            console.log("GET error.");
+          });
+
     };
 
 
-    borealysis.test = [{"text":"ayy lmao"}];
 
 
 

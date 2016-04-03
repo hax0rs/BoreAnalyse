@@ -1,7 +1,198 @@
-.coal{
-    /* background-color: white; */
+
+/*Calcite*/
+.CA{
+    background-color: #D2D2D2;
 }
 
-.ob{
-    color: gray;
+/*Coal Inferior*/
+.CF{
+    background-color: #210B08;
 }
+
+/*CG,CONGLOMERATE*/
+.CG{
+    background-color: #595649;
+}
+
+/*Clay*/
+.CL{
+    background-color: #857964;
+}
+
+/*CM,CARBONACEOUS MUDSTONE*/
+.CM{
+    background-color: #575342;
+}
+
+/*Clayey Sand*/
+.CN{
+    background-color: #AB9C80;
+}
+
+/*Coal*/
+.CO{
+    background-color: #1E1E1E;
+}
+
+/*CT,CHLORITE SCHIST*/
+.CT{
+    background-color: #496B51;
+}
+
+/*CY,CLAYSTONE*/
+.CY{
+    background-color: #6B6251;
+}
+
+/*CZ,COALY SHALE*/
+.CZ{
+    background-color: #3B3B3B;
+}
+
+/*DM,DOLOMITE*/
+.DB{
+    background-color: #C3BAC1;
+}
+
+/*FA,FAULT ZONE*/
+.FA{
+    background-color: #AD382A;
+}
+
+/*FU,FUSAIN*/
+.FU{
+    background-color: #2E2C1E;
+}
+
+/*GC,GRANULE CONGLOMERATE*/
+.GC{
+    background-color: #595649;
+}
+
+/*GS,GRAVELLY SAND*/
+.GS{
+    background-color: #CCCC91;
+}
+
+/*GV,GRAVEL*/
+.GV{
+    background-color: #A6A6A6;
+}
+
+/*IG,IGNEOUS ROCK*/
+.IG{
+    background-color: #453E45;
+}
+
+/*KK,CONE IN CONE*/
+.KK{
+    background-color: #2B5EA1;
+}
+
+/*Lost Core - Not associated with Quality Sample*/
+.LC{
+    background-color: #AD382A;
+}
+
+/*Lost Core*/
+.LO{
+    background-color: #AD382A;
+}
+
+/*MS,MUDSTONE*/
+.MS{
+    background-color: #ADA685;
+}
+
+/*Not Logged*/
+.NL{
+    background-color: #AD382A;
+}
+
+/*PY,PYRITE*/
+.PY{
+    background-color: #D4CE53;
+}
+
+/*Sand*/
+.SA{
+    background-color: #FFE9C0;
+}
+
+/*SC,SHALY COAL*/
+.SC{
+    background-color: #282828;
+}
+
+/*SD,SIDERITE*/
+.SD{
+    background-color: #D4B341;
+}
+
+/*SH,SHALE*/
+.SH{
+    background-color: #282828;
+}
+
+/*SL,SILT*/
+.SL{
+    background-color: #E5C093;
+}
+
+/*Sandy Clay*/
+.SN{
+    background-color: #AB9C80;
+}
+
+/*SO,SOIL*/
+.SO{
+    background-color: #3B2300;
+}
+
+/*SP,SPOIL*/
+.SP{
+    background-color: #3B2300;
+}
+
+/*Sandstone*/
+.SS{
+    background-color: #F2DDB6;
+    color: black;
+}
+
+/*ST,SILTSTONE*/
+.ST{
+    background-color: #CF9648;
+}
+
+/*SY,SOOT*/
+.SY{
+    background-color: #000000;
+}
+
+/*TF,TUFF*/
+.TF{
+    background-color: #EBE0E8;
+    color: black;
+}
+
+/*TO,TONSTEIN*/
+.TO{
+    background-color: #8C5D5E;
+}
+
+/*XS,CARB SANDSTONE*/
+.XS{
+    background-color: #615D4A;
+}
+
+/*XT,CARB SILTSTONE*/
+.XT{
+    background-color: #423F33;
+}
+
+/*YC,CARBONACEOUS CLAYSTONE*/
+.YC{
+    background-color: #575342;
+}
+

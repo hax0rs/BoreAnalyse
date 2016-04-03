@@ -91,6 +91,16 @@ def summary(bore_id):
     final = {'depth': depth, 'coal_count': coals, 'coal_percent': pcoal, 'rare': rares}
     return json.jsonify(final)
 
+@app.route('/generate')
+@app.route('/generate/')
+def generate_all():
+    with open('full_data.csv') as f:
+        full_data = list(csv.reader(f))
+        holes = [x[0] for x in full_data]
+
+        for hole in set(holes):
+            generate(hole)
+
 @app.route('/generate/<bore_id>')
 @app.route('/generate/<bore_id>/')
 def generate(bore_id):

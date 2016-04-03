@@ -39,7 +39,7 @@ var foo = setInterval(function () {
     };
 
     borealysis.get_borehole_properties = function(borehole_id){
-        var url = api_url.concat("holes/").concat(borehole_id).concat("/");
+        var url = api_url.concat("con/").concat(borehole_id).concat("/");
         $http({
           method: 'GET',
           url: url

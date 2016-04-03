@@ -60,6 +60,60 @@ def hole_id(bore_id):
     return json.jsonify(final)
 
 
+@app.route('/con/<bore_id>')
+@app.route('/con/<bore_id>/')
+def hole_id_con(bore_id):
+    """Returns JSON data related to the specifichole.
+
+    Arguments:
+    borehole_id -- The ID of the borehole
+
+    Returns:
+    location --
+        latitude -- coordinates
+        longitude --
+    seam_count --
+
+
+    """
+
+    # WARNING: REALLY BAD HACKED TOGETHER CODE
+    info = db.get_hole(bore_id)[0]
+    segments = db.get_segments(bore_id)
+    segments_dic = {}
+    i = 0
+    last_segment_type = "NOPE"
+    last_seg_p = 0
+    last_start = 0
+    last_end = 0
+    segdic = {}
+    for seg in segments:
+        if seg[2] != last_segment_type:
+            if last_seg_p == 1:
+                segdic['type'] = last_segment_type
+            segdic['range'] = {'start': last_start, 'end': last_end}
+            segdic['size'] = float(last_end - last_start)
+            segments_dic[i] = segdic
+            i += 1
+            last_start = seg[3]
+            last_end = seg[4]
+            last_segment_type = seg[2]
+            last_seg_p = seg[1]
+            segdic = {}
+        else:
+            last_end = seg[4]
+    if last_seg_p == 1:
+        segdic['type'] = last_segment_type
+    segdic['range'] = {'start': last_start, 'end': last_end}
+    segdic['size'] = float(last_end - last_start)
+    segments_dic[i] = segdic
+
+    del segments_dic[0]
+
+    final = {'bore_id': bore_id, 'location':{'latitude': info[1], 'longitude': info[2]}, 'segment_count': len(segments), 'segment': segments_dic}
+    return json.jsonify(final)
+
+
 @app.route('/holes/<bore_id>/<seam_id>')
 @app.route('/holes/<bore_id>/<seam_id>/')
 def seam(bore_id, seam_id):
@@ -108,7 +162,7 @@ def generate(bore_id):
         reader = csv.reader(csvfile)
         array = list(reader)
         array = list(filter(lambda x: x[0] == bore_id, array))
-        
+
         db_segments = db.get_segments(bore_id)
         def check_redundant(row):
             for segment in db_segments:
@@ -126,9 +180,9 @@ def generate(bore_id):
         results = list(filter(lambda x: x is not None, results))
         print(len(results))
         depths = [float(x[0]) for x in results]
-        data = [(row[0], 1, result[1], float(result[0]), min(filter(lambda x: x > float(result[0]), depths))) 
+        data = [(row[0], 1, result[1], float(result[0]), min(filter(lambda x: x > float(result[0]), depths)))
             for row in array for result in results if float(result[0]) == float(row[1]) if float(result[0]) != max(depths)]
-        
+
         for row in data:
             db.put_segment(*row)
 
@@ -143,7 +197,7 @@ def get_azure(row):
                 {
                     "ColumnNames": ["Col1", "Col2", "Col3", "Col4", "Col5", "Col6", "Col7", "Col8", "Col9"],
                     "Values": [row]
-                    },        
+                    },
             },
             "GlobalParameters": {}
         }
@@ -154,7 +208,7 @@ def get_azure(row):
         api_key = 'JvSUvSc4vV6VYIPlOCS+cNfF8fHSAaMWfD+6lELTywCko19eO6mE9w6L6DJHLkkYiJ7g8e7XpxprXD6ytJtXOw=='
         headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ api_key)}
 
-        req = urllib.request.Request(url, body, headers) 
+        req = urllib.request.Request(url, body, headers)
         with urllib.request.urlopen(req) as response:
             result = json.loads(response.read())['Results']['output1']['value']['Values'][0]
             return result[0], result[-1]
